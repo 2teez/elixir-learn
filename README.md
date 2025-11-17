@@ -1,3 +1,5 @@
+# Learn Elixir
+
 Learning Elixir Programming Language as soon as possible to implement projects.
 
 Using several books namely:
@@ -8,4 +10,3 @@ Using several books namely:
 4. Elixir in Action,
 
 And so many......
-
