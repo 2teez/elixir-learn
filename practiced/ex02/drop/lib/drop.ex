@@ -1,4 +1,6 @@
 defmodule Drop do
+  import :math, only: [sqrt: 1]
+
   @moduledoc """
   Documentation for `Drop`.
   """
@@ -12,15 +14,13 @@ defmodule Drop do
       :world
 
   """
+  @spec fall_velocity(number()) :: float()
+
   def fall_velocity(distance) do
-    :math.sqrt(2 * 9.8 * distance)
+    sqrt(2 * 9.8 * distance)
   end
 
-  def mps_to_mph(mps) do
-    2.23693629 * mps
-  end
-
-  def mps_to_kmh(mps) do
-    3.6 * mps
+  def fall_velocity(distance, gravity) do
+    sqrt(2 * distance * gravity)
   end
 end
