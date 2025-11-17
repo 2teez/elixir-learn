@@ -13,6 +13,9 @@ function helper() {
     echo "Avaliable Options:"
     echo "-d    : delete a file."
     echo "-g    : Create a generic exs file."
+    echo "-i    : Create a dummy project and lunch the elixir interraction prompts.
+                  This project is deleted when you exit."
+    echo "-p    : Creating an elixir project "
     echo "-r    : Compile and Run a exs file"
     echo "-h    : help."
 }
@@ -22,7 +25,7 @@ function helper() {
 [[ "${#}" != 2 ]] && helper
 
 # opstring for interration
-opstring="d:g:r:h"
+opstring="d:g:i:r:p:h"
 
 while getopts "${opstring}" opt; do
     case "${opt}" in
@@ -31,6 +34,36 @@ while getopts "${opstring}" opt; do
             ;;
         g)
             echo "creating a generic elixir file"
+            ;;
+        i)
+            project_name="${OPTARG}"
+            mix new "${project_name}"
+            cd "${project_name}"
+            iex -S mix
+            cd ..
+            while read -p "Will you like to retain the project: ${project_name}?: [y|n]" ans; do
+                case "${ans}" in
+                    y|Y)
+                    echo "${project_name} is retained."
+                    exit 0
+                    ;;
+                    n|N)
+                        rm -rf "${project_name}"
+                        echo "${project_name} is deleted."
+                        exit
+                        ;;
+                    *)
+                        echo "Invalid option. You can only use 'y' or 'n'. "
+                        continue
+                    ;;
+                esac
+            done
+            ;;
+        p)
+            # create an elixir project with all required dependencies
+            project_name="${OPTARG}"
+            mix new "${project_name}"
+            cd "${project_name}" && mix test
             ;;
         r)
             echo "run a file"
