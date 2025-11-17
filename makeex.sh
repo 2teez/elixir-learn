@@ -41,7 +41,7 @@ while getopts "${opstring}" opt; do
             cd "${project_name}"
             iex -S mix
             cd ..
-            while read -p "Will you like to retain the project: ${project_name}?: [y|n]" ans; do
+            while read -p "Will you like to retain the project: ${project_name}? [y|n]: " ans; do
                 case "${ans}" in
                     y|Y)
                     echo "${project_name} is retained."
