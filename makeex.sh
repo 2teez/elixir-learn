@@ -12,12 +12,26 @@ function helper() {
     echo
     echo "Avaliable Options:"
     echo "-d    : delete a file."
-    echo "-g    : Create a generic exs file."
+    echo "-g    : Create a generic ex file."
     echo "-i    : Create a dummy project and lunch the elixir interraction prompts.
                   This project is deleted when you exit."
     echo "-p    : Creating an elixir project "
-    echo "-r    : Compile and Run a exs file"
+    echo "-r    : Compile and Run a ex or a exs file"
+    echo "-s    : Create a generic exs file. A script file."
     echo "-h    : help."
+}
+
+# global filename initialized to empty
+filename=
+
+# check for the extension of the file
+function check_extension() {
+    file="${1}"
+    # extension_type="${2}" # not needed for now
+    file_extension="${file#*.}"
+    if ! [[ -z "file_extension" ]]; then
+        filename="${file%.*}"
+    fi
 }
 
 
@@ -25,7 +39,7 @@ function helper() {
 [[ "${#}" != 2 ]] && helper
 
 # opstring for interration
-opstring="d:g:i:r:p:h"
+opstring="d:g:i:r:p:s:h"
 
 while getopts "${opstring}" opt; do
     case "${opt}" in
@@ -34,6 +48,10 @@ while getopts "${opstring}" opt; do
             ;;
         g)
             echo "creating a generic elixir file"
+
+            file="${OPTARG}"
+            check_extension "${file}" "not script"
+            mix new "${filename}" --app "${filename}"
             ;;
         i)
             project_name="${OPTARG}"
@@ -67,6 +85,12 @@ while getopts "${opstring}" opt; do
             ;;
         r)
             echo "run a file"
+            ;;
+        s)
+            echo "run a elixir script file"
+
+            file="${OPTARG}"
+            # check_extension "${file}" "script"
             ;;
         h)
             # display helper function
