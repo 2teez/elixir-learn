@@ -34,6 +34,34 @@ function check_extension() {
     fi
 }
 
+function create_exlixir_script() {
+    file="${1}"
+    file_extension="${file#*.}"
+    [[ "${file_extension}" != "exs" ]] && file="${file%.*}.exs"
+    local_filename="${file%.*}"
+    local_filename="${local_filename^}"
+
+    # change global filename
+    filename="${file,,}"
+
+    echo "
+    defmodule ${local_filename} do
+        @moduledoc \"\"\"
+          Documentation for ${local_filename}
+        \"\"\"
+
+        @doc \"\"\"
+
+        # Example
+        \"\"\"
+
+        def hello() do
+            :world
+        end
+    end
+    " > "${filename}"
+}
+
 
 # calle helper function if the cli parameter is wrong
 [[ "${#}" != 2 ]] && helper
@@ -90,7 +118,8 @@ while getopts "${opstring}" opt; do
             echo "run a elixir script file"
 
             file="${OPTARG}"
-            # check_extension "${file}" "script"
+            check_extension "${file}" "script"
+            create_exlixir_script "${file}"
             ;;
         h)
             # display helper function
