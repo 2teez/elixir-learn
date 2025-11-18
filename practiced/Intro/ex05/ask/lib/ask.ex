@@ -13,7 +13,7 @@ defmodule Ask do
 
   """
   def line() do
-    planet = get_planet(get_planet())
+    planet = get_planet()
     distance = get_distance()
     Drop.fall_velocity(planet, distance)
   end
@@ -27,7 +27,8 @@ defmodule Ask do
     """)
 
     IO.gets("Which? > ")
-    |> String.first()
+    |> String.trim()
+    |> get_planet()
   end
 
   defp get_distance() do
@@ -39,4 +40,5 @@ defmodule Ask do
   defp get_planet("1"), do: :earth
   defp get_planet("2"), do: :moon
   defp get_planet("3"), do: :mars
+  defp get_planet(_), do: :earth
 end
