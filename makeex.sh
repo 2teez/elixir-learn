@@ -27,17 +27,27 @@ filename=
 # check for the extension of the file
 function check_extension() {
     file="${1}"
-    # extension_type="${2}" # not needed for now
+
     file_extension="${file#*.}"
-    if ! [[ -z "file_extension" ]]; then
+    if ! [[ -z "${file_extension}" ]]; then
         filename="${file%.*}"
     fi
 }
 
-function create_exlixir_script() {
+function create_elixir_script() {
     file="${1}"
     file_extension="${file#*.}"
-    [[ "${file_extension}" != "exs" ]] && file="${file%.*}.exs"
+
+    # check the extension of the file
+    # and determines if you want it to be
+    # a script with `exs` or a file with `ex`
+    if [[ "${file_extension}" == "ex" ]]; then
+        file="${file%.*}.ex"
+    else
+        file="${file%.*}.exs"
+    fi
+    [[ -z "${file_extension}" ]] && file="${file%.*}.exs"
+
     local_filename="${file%.*}"
     local_filename="${local_filename^}"
 
@@ -78,7 +88,7 @@ while getopts "${opstring}" opt; do
             echo "creating a generic elixir file"
 
             file="${OPTARG}"
-            check_extension "${file}" "not script"
+            check_extension "${file}"
             mix new "${filename}" --app "${filename}"
             ;;
         i)
@@ -118,8 +128,8 @@ while getopts "${opstring}" opt; do
             echo "run a elixir script file"
 
             file="${OPTARG}"
-            check_extension "${file}" "script"
-            create_exlixir_script "${file}"
+            check_extension "${file}"
+            create_elixir_script "${file}"
             ;;
         h)
             # display helper function
