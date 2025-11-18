@@ -1,0 +1,18 @@
+defmodule Convert do
+  @moduledoc """
+    Documentation for Convert
+  """
+
+  @doc """
+
+  # Example
+  """
+
+  def mps_to_mph(mps) do
+    2.23693629 * mps
+  end
+
+  def mps_to_kmh(mps) do
+    3.6 * mps
+  end
+end
