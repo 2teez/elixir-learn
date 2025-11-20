@@ -13,8 +13,7 @@ function helper() {
     echo "Avaliable Options:"
     echo "-d    : delete a file."
     echo "-g    : Create a generic ex file."
-    echo "-i    : Create a dummy project and lunch the elixir interraction prompts.
-                  This project is deleted when you exit."
+    echo "-i    : Create a dummy project and lunch the elixir interraction prompts. This project is deleted when you exit."
     echo "-p    : Creating an elixir project "
     echo "-r    : Compile and Run a ex or a exs file"
     echo "-s    : Create a generic exs file. A script file."
