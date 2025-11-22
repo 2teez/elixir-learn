@@ -82,6 +82,12 @@ while getopts "${opstring}" opt; do
     case "${opt}" in
         d)
             echo "deleting files..."
+            file="${OPTARG}"
+            if [[ -f "${file}" ]]; then
+                rm "${file}"
+            else
+                rm -rf "${file}"
+            fi
             ;;
         g)
             echo "creating a generic elixir file"
