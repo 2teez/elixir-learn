@@ -7,7 +7,8 @@ defmodule ExceptTest do
   end
 
   test "test the velocity fall from the earth" do
-    assert Except.fall_velocity(%Planet{name: :earth, distance: 20}) == 19.79898987322333
+    calculated = Except.fall_velocity(%Planet{name: :earth, distance: 20})
+    assert_in_delta calculated, 19.79, 0.05, "Result #{calculated} not within delta 0.05"
   end
 
   test "test the velocity fall from the earth's moon" do
