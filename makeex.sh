@@ -81,8 +81,13 @@ opstring="d:g:i:r:p:s:h"
 while getopts "${opstring}" opt; do
     case "${opt}" in
         d)
-            echo "deleting files..."
             file="${OPTARG}"
+            if ! [[ -e "${file}" ]]; then
+                echo "${file} doesn't exit."
+                exit 0
+            fi
+            echo "deleting files... ${file}..."
+
             if [[ -f "${file}" ]]; then
                 rm "${file}"
             else
