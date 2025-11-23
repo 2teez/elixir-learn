@@ -33,3 +33,39 @@ defmodule Hof do
   @spec length_of(list(), num()) :: num()
   def length_of([_ | t], acc), do: length_of(t, acc + 1)
 end
+
+defmodule Util.List do
+  @moduledoc """
+  Practice some list utility function in elixir
+  """
+
+  def mapsum(list, fun), do: mapsum(list, fun, 0)
+  defp mapsum([], _fun, result), do: result
+
+  defp mapsum([h | t], fun, result) do
+    mapsum(t, fun, result + fun.(h))
+  end
+end
+
+defmodule MyList do
+  def mapsum([], _fun), do: 0
+  def mapsum([h | t], fun), do: fun.(h) + mapsum(t, fun)
+
+  def max([]), do: nil
+  def max([h]), do: h
+
+  def max([h | [hh | t]]) do
+    if h > hh do
+      max([h | t])
+    else
+      max([hh | t])
+    end
+  end
+end
+
+defmodule Main do
+  def run do
+    IO.puts(MyList.mapsum([1, 2, 3], &(&1 * &1)))
+    IO.puts(Util.List.mapsum([1, 2, 3], &(&1 * &1)))
+  end
+end
