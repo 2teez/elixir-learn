@@ -11,6 +11,7 @@ function helper() {
     echo "Usage: ${filename} <options> filename"
     echo
     echo "Avaliable Options:"
+    echo "-a    : project file with main included."
     echo "-d    : delete a file."
     echo "-g    : Create a generic ex file."
     echo "-i    : Create a dummy project and lunch the elixir interraction prompts. This project is deleted when you exit."
@@ -76,10 +77,17 @@ function create_elixir_script() {
 [[ "${#}" != 2 ]] && helper
 
 # opstring for interration
-opstring="d:g:i:r:p:s:h"
+opstring="a:d:g:i:r:p:s:h"
 
 while getopts "${opstring}" opt; do
     case "${opt}" in
+        a)
+            echo "creating a application elixir file"
+
+            file="${OPTARG}"
+            check_extension "${file}"
+            mix new "${filename}" --sup
+            ;;
         d)
             file="${OPTARG}"
             if ! [[ -e "${file}" ]]; then
