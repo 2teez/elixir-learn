@@ -3,6 +3,6 @@ defmodule StringhelperTest do
   doctest Stringhelper
 
   test "if the string is palindrone" do
-    assert Stringhelper.palin? "hello, world" == "hello, world"
+    assert Stringhelper.palin? "mum"
   end
 end
