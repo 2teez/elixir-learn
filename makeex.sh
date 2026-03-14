@@ -141,6 +141,8 @@ while getopts "${opstring}" opt; do
             ;;
         r)
             echo "run a file"
+            file="${OPTARG}"
+            elixir "${file}"
             ;;
         s)
             echo "run a elixir script file"
