@@ -18,6 +18,6 @@
         def sum([]), do: 0
         def sum([h|t]), do: h + sum(t)
 
-        def reduce([], _fun, acc), do: acc
+        def reduce([], _fun, acc \\ 0), do: acc
         def reduce([h|t], fun, acc), do: reduce(t, fun, fun.(h, acc))
     end
