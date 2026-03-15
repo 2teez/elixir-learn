@@ -16,3 +16,5 @@ IO.inspect(fizzbuzz.(13))
 IO.inspect(fizzbuzz.(14))
 IO.inspect(fizzbuzz.(15))
 IO.inspect(fizzbuzz.(16))
+
+(1..34) |> Enum.map(fizzbuzz) |> IO.inspect()
