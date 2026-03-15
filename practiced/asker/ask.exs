@@ -26,7 +26,7 @@
             """) |> String.first() |> char_to_planet
 
         def get_distance(),  do:
-         IO.gets("distance: ") |> String.trim() |> String.to_float()
+         IO.gets("distance: ") |> String.trim() |> String.to_integer()
 
 
         defp char_to_planet(char) do
