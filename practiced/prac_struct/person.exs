@@ -8,10 +8,10 @@ defmodule PrintPerson do
   end
 end
 
-defimpl inspect, for: Person do
-  import inspect.Algebra
+defimpl Inspect, for: Person do
+  import Inspect.Algebra
 
   def inspect(person, _opts) do
-    concat(["Person(", to_string(person.name), ", ", to_string(person.age), ")"])
+    concat(["Person(", "Name: ", to_string(person.name), ", Age: ", to_string(person.age), ")"])
   end
 end
