@@ -7,3 +7,11 @@ defmodule PrintPerson do
     IO.puts("Name: #{person.name}, Age: #{person.age}")
   end
 end
+
+defimpl inspect, for: Person do
+  import inspect.Algebra
+
+  def inspect(person, _opts) do
+    concat(["Person(", to_string(person.name), ", ", to_string(person.age), ")"])
+  end
+end
