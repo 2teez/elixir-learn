@@ -25,8 +25,19 @@ defmodule Enums do
   defp reverser([], acc), do: acc
   defp reverser([h | t], acc), do: reverser(t, [h | acc])
 
-  def split(list, count), do: spliter(list, count, [])
-  defp spliter([], _count, acc), do: {reverser(acc), []}
-  defp spliter(list, 0, acc), do: {reverser(acc), list}
-  defp spliter([h | t], count, acc), do: spliter(t, count - 1, [h | acc])
+  def split(list, count), do: split(list, count, [])
+  defp split([], _count, acc), do: {reverser(acc), []}
+  defp split(list, 0, acc), do: {reverser(acc), list}
+  defp split([h | t], count, acc), do: split(t, count - 1, [h | acc])
+
+  def flatten(list), do: flatten(list, []) |> reverser()
+  defp flatten([], acc), do: acc
+  defp flatten([h | t], acc) do
+    if is_list(h) do
+      flatten(t, flatten(h, acc))
+    else
+      flatten(t, [h | acc])
+    end
+  end
+
 end
