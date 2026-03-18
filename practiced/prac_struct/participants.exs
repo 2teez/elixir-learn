@@ -1,16 +1,12 @@
 
-    defmodule Participants do
-        @moduledoc """
-          Documentation for Participants
-        """
+defmodule Participants do
+  defstruct name: "", paid: false, over_18: true
+end
 
-        @doc """
+defimpl Inspect, for: Participants do
+  import Inspect.Algebra
 
-        # Example
-        """
-
-        def hello() do
-            :world
-        end
-    end
-    
+  def inspect(participant, _opts) do
+    concat(["Participants(", "Name: ", to_string(participant.name), ", Paid: ", to_string(participant.paid), ", Over 18: ", to_string(participant.over_18), ")"])
+  end
+end
