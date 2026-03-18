@@ -30,14 +30,10 @@ defmodule Enums do
   defp split(list, 0, acc), do: {reverser(acc), list}
   defp split([h | t], count, acc), do: split(t, count - 1, [h | acc])
 
-  def flatten(list), do: flatten(list, []) |> reverser()
-  defp flatten([], acc), do: acc
-  defp flatten([h | t], acc) do
-    if is_list(h) do
-      flatten(t, flatten(h, acc))
-    else
-      flatten(t, [h | acc])
-    end
-  end
+  def flattern(list), do: flattern(list, []) |> reverser()
+  defp flattern([], acc), do: acc
+  defp flattern([h | t], acc) when is_list(h), do:
+      flattern(t, flattern(h, acc))
+  defp flattern([h | t], acc), do: flattern(t, [h | acc])
 
 end
