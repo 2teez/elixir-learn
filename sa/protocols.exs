@@ -1,4 +1,4 @@
-defmodule Type do
+defmodule Types do
   @moduledoc """
   Defines the `entity` type as a string.
   """
@@ -9,9 +9,13 @@ defmodule Customer do
   @moduledoc"""
   Represents a customer.
   """
-
-  @type t() :: %Customer{id: Type.entity_id(), first_name: String.t(), last_name: String.t()}
   defstruct id: "", first_name: "", last_name: ""
+
+    @type t() :: %__MODULE__{
+    id: Types.entity_id(),
+    first_name: String.t(),
+    last_name: String.t()
+  }
 end
 
 defmodule CustomerDuo do
@@ -22,7 +26,7 @@ defmodule CustomerDuo do
   @doc """
   Creates a new `Customer` with the given customers.
   """
-  @spec new(Type.entity_id(), String.t(), String.t()) :: Customer.t()
+  @spec new(Types.entity_id(), String.t(), String.t()) :: Customer.t()
   def new(id, first_name, last_name) do
     %Customer{id: id, first_name: first_name, last_name: last_name}
   end
@@ -41,7 +45,7 @@ defmodule CustomerDuo do
   - `{:error, :not_found}`: No customer found with the given entity ID.
   """
 
-    @spec get_customer(Customer.t(), Type.entity_id()) :: {:ok, Customer.t()} | {:error, :not_found}
+    @spec get_customer(Customer.t(), Types.entity_id()) :: {:ok, Customer.t()} | {:error, :not_found}
     def get_customer(c, id) do
       case c do
         %Customer{id: ^id} = customer -> {:ok, customer}
