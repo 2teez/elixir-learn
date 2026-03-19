@@ -59,3 +59,11 @@ defimpl Printable, for: Customer do
     [customer.id, customer.first_name, customer.last_name] |> Enum.join(",")
   end
 end
+
+defimpl Printable, for: Map do
+  def to_csv(data) do
+    data
+    |> Enum.map(&Map.keys/1)
+    |> Enum.join(",")
+  end
+end
