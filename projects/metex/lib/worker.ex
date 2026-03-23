@@ -1,8 +1,8 @@
 defmodule Metex.Worker do
-  def temperature_of_location(location) do
+  def temperature_of(location) do
     result = url_for(location) |> HTTPoison.get() |> parse_response()
     case result do
-      {:ok, temp} -> "Temperature of #{location}: #{temp}°C"
+      {:ok, temp} -> "#{location}: #{temp}°C"
       {:error, _} -> "Error fetching temperature for #{location}"
     end
   end
@@ -13,8 +13,10 @@ defmodule Metex.Worker do
   end
 
   defp parse_response({:ok, %HTTPoison.Response{body: body, status_code: 200}}) do
-    body |> Poison.decode!() |> compute_temperature()
+    body |> JSON.decode!() |> compute_temperature()
   end
+
+  defp parse_response(_), do: {:error, :not_found}
 
   defp compute_temperature(data) do
     try do
@@ -26,8 +28,6 @@ defmodule Metex.Worker do
   end
 
   defp apikey do
-    System.get_env("OPENWEATHERMAP_API_KEY")
+    "9d17cfe98e2e765bbdfd02365b04f155"
   end
-
-  defp parse_response({:error, _}), do: {:error, :not_found}
 end
