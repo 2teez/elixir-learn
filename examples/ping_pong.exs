@@ -11,17 +11,17 @@
 
         def pong() do
           pid = spawn(PingPong, :ping, [])
-          send(pid, {:ping, self()})
+          send(pid, {self(), :ping})
 
           receive do
-            {:pong, _} -> IO.puts("#{inspect(ping)}")
+            {:pong, _} -> "pong"
             {:exit, reason} -> exit(reason)
           end
         end
 
         def ping() do
             receive do
-                {:ping, pid} -> send(pid, {:pong, IO.puts("pong")})
+                {pid, :ping} -> send(pid, {:pong, IO.puts("ping")})
                 {:exit, reason} -> exit(reason)
             end
             ping()
