@@ -3,7 +3,7 @@ defmodule Stats do
   Documentation for `Stats`.
   """
 
-  def sum(vals),  do: vals |> Enum.reduce(0, &+/2)
+  def sum(vals), do: vals |> Enum.reduce(0, &+/2)
   def count(vals), do: vals |> length()
   def average(vals), do: sum(vals) |> Kernel./(count(vals))
 end
