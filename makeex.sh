@@ -70,6 +70,7 @@ function create_elixir_script() {
         end
     end
     " > "${filename}"
+    mix format "${filename}"
 }
 
 
