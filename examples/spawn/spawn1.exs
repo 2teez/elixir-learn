@@ -22,5 +22,7 @@ defmodule Spawn1 do
       {pid, msg} ->
         send(pid, {:ok, "Hello, #{msg}"})
     end
+
+    greet()
   end
 end
