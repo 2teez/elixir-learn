@@ -3,11 +3,6 @@ defmodule Math do
     Documentation for Math
   """
 
-  @doc """
-
-  # Example
-  """
-
   def sum([]), do: 0
   def sum([h | t]) when is_integer(h) and is_list(t), do: h + sum(t)
 
