@@ -12,4 +12,10 @@ defmodule Math_test do
   test "sum up to 5" do
     assert Math.Sum.up_to(5) == 15
   end
+
+  describe "sum up to using tail recurssion" do
+    test "sum up to tail" do
+      assert Math.Sum.up_to_tail(10) == 55
+    end
+  end
 end
