@@ -4,6 +4,7 @@ ExUnit.start()
 
 defmodule Math_test do
   use ExUnit.Case
+  # doctest Math
 
   @moduledoc """
     Documentation for Math_test
