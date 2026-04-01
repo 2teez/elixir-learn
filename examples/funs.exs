@@ -1,4 +1,4 @@
-defmodule Funs do
+defmodule Funs.Fetch do
   @moduledoc """
     Documentation for Funs
   """
@@ -19,6 +19,21 @@ defmodule Funs do
   defp fetch([], _index, _count), do: :error
 
   defp fetch([head | tail], index, count) do
-    if index == count, do: {:ok, head}, else: fetch(tail, index, count + 1)
+    index =
+      case index < 0 do
+        true -> (tail |> length()) + index + 1
+        false -> index
+      end
+
+    if index >= 0 do
+      case index do
+        ^count -> {:ok, head}
+        _ -> fetch(tail, index, count + 1)
+      end
+    else
+      :error
+    end
   end
 end
+
+alias Funs.Fetch, as: Fetch
