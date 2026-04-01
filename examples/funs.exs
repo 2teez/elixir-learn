@@ -33,10 +33,14 @@ defmodule Funs.Fetch do
   end
 end
 
-alias Funs.Fetch, as: Fetch
+defmodule Funs.Main do
+  alias Funs.Fetch, as: Fetch
 
-lt = 1..5 |> Enum.to_list()
+  def print_fetch do
+    lt = 1..5 |> Enum.to_list()
 
--5..5
-|> Enum.to_list()
-|> Enum.each(fn x -> IO.inspect(Fetch.fetch(lt, x)) end)
+    -5..5
+    |> Enum.to_list()
+    |> Enum.each(fn x -> IO.inspect(Fetch.fetch(lt, x)) end)
+  end
+end
