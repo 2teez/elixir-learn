@@ -14,7 +14,7 @@ defmodule Funs.Fetch do
   :error
   """
 
-  @spec fetch(list(), integer()) :: {:ok, integer()} | :error
+  @spec fetch([t], integer()) :: {:ok, t} | :error when t: var
   def fetch(list, index), do: fetch(list, index, 0)
   defp fetch([], _index, _count), do: :error
 
@@ -25,15 +25,18 @@ defmodule Funs.Fetch do
         false -> index
       end
 
-    if index >= 0 do
-      case index do
-        ^count -> {:ok, head}
-        _ -> fetch(tail, index, count + 1)
-      end
-    else
-      :error
+    cond do
+      index < 0 -> :error
+      index == count -> {:ok, head}
+      true -> fetch(tail, index, count + 1)
     end
   end
 end
 
 alias Funs.Fetch, as: Fetch
+
+lt = 1..5 |> Enum.to_list()
+
+-5..5
+|> Enum.to_list()
+|> Enum.each(fn x -> IO.inspect(Fetch.fetch(lt, x)) end)
